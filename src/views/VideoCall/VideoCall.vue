@@ -1,29 +1,7 @@
 <template>
   <div class="home">  
     <h3>{{  uid }}</h3>
-    <el-scrollbar  ref="scrollbarRef" @scroll="scroll">
-      <div class="chat-list-left">
-               <img src="https://cdn.uviewui.com/uview/album/2.jpg" class="list-img">
-               <div class="left-msg">啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</div>
-           </div>
-           <div class="chat-list-right">
-               <img src="https://cdn.uviewui.com/uview/album/2.jpg" class="list-img">
-               <div class="right-msg">3123123123eijfewijewifjeiowjfiowejfoweijfeowijeoifjewoijfeiowjfeowijfeiojfewoijeiofjeefjweiojfeoi</div>
-           </div>
-
-    </el-scrollbar>
-
-    <div class="chat-boom">
-            <el-input
-                    class="textarea"
-                    type="textarea"
-                    :rows="7"
-                    placeholder="Please input"
-                    v-model="text"
-            />
-            <el-button type="primary"  >视频通话</el-button>
-            <el-button type="primary" >发送</el-button>
-        </div>
+    
   </div>
 </template>
 
@@ -55,8 +33,7 @@ onMounted(() => {
 })
  
 watch(route, (newValue, oldValue) => {
-  uid.value = newValue.query.uid
-  console.log(newValue, oldValue, '==',uid.value )
+  uid.value = newValue.query.uid 
 })
 
 </script>

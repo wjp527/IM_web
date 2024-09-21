@@ -3,7 +3,7 @@
       <div class="home-cont">
           <div class="home-cont-left">
               <div class="home-cont-left-top">
-                  <img :src="url" class="home-cont-left-img">
+                  <img :src="userInfo.image" class="home-cont-left-img">
                   <router-link tag="div" to="/list"  class="home-icon" replace>
                     list  
                   </router-link>
@@ -26,8 +26,11 @@
 
 <script lang="ts" setup>
   import { useRouter } from 'vue-router'
-  import { onMounted,reactive,ref } from 'vue'
-  // import {getUser} from "../api/user";
+  import { onMounted,ref } from 'vue'
+  
+  import useUserStore from '../store/user';
+import { GET_TOKEN } from '../utils/token';
+  const userStore = useUserStore();
 
   const router = useRouter();
   const url = ref('');
@@ -38,14 +41,17 @@
       router.replace("/login");
   }
 
-  const details = ()=>{
-      // getUser().then(res=>{
-      //   url.value = res.data.image
-      //   localStorage.setItem("im-userid",res.data.id)
-      // })
+  // 用户信息
+  let userInfo = ref({}) as any
+  const details = async ()=>{
+    let res = await userStore.getUserInfoAsync()
+    if(res.code == 200) {
+      userInfo.value = userStore.userInfo
+    }
   }
-
-  onMounted(()=>{
+ 
+  details()
+  onMounted(()=>{ 
       details()
   })
 

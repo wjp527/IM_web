@@ -1,10 +1,9 @@
 <template>
-
   <div class="userlist">
 
     <div class="userlist-left">
       <el-scrollbar>
-        <div class="left-list" v-for="(item,index) in list.arr" :class="{'left-list-bg' : active == item.id}" @click="startCall(item)" :key="index">
+        <div class="left-list" v-for="(item,index) in friendList" :class="{'left-list-bg' : active == item.id}" @click="startCall(item)" :key="index">
           <img :src="item.image" class="left-list-img">
           <span class="left-list-title">{{item.username}}</span>
         </div>
@@ -22,6 +21,9 @@
 <script lang="ts" setup>
 import { onMounted,reactive,ref } from 'vue'
 import { useRouter } from 'vue-router'
+import useFriendStore from '../../store/friend'
+import { ElMessage } from 'element-plus';
+const friendStore = useFriendStore()
 // import {getlist} from "../../api/friend";
 
 let list = reactive({arr:[{
@@ -41,10 +43,17 @@ const startCall = (e: any)=>{
 }
 
 
+let friendList = ref([]) as any
+const init = async () => {
+  let res = await friendStore.getFriendListAsync()
+  if(res == 200) {
+    friendList.value = friendStore.friendList
+  } else {
+    ElMessage.warning('获取好友列表失败')
+  }
+}
 onMounted(()=>{
-  // getlist().then(res=>{
-  //   list.arr =  res.data
-  // })
+  init()
 })
 
 </script>

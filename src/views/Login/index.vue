@@ -33,8 +33,8 @@ const router = useRouter()
 // Define the form model
 const formRef = ref(null) as any;
 const form = ref({
-  username: '',
-  password: ''
+  username: 'user1',
+  password: '123456'
 });
 
 // Define validation rules
@@ -51,11 +51,11 @@ const submitForm = () => {
   formRef.value.validate(async (valid: boolean) => {
     if (valid) {
       let res = await userStore.getUserLoginAsync(form.value)
-      console.log(res,'res')
+ 
       if(res.code == 200) {
         ElMessage.success('登录成功')
-        SET_TOKEN(res.data)
         router.push('/list')
+        SET_TOKEN(res.data) 
         
       } else {
         ElMessage.error('登录失败')
