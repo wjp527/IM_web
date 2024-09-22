@@ -12,7 +12,7 @@
 
     <div class="chat-boom">
       <el-input class="textarea" type="textarea" :rows="7" placeholder="Please input" v-model="text" />
-      <el-button type="primary">视频通话</el-button>
+      <el-button type="primary" @click="call">视频通话</el-button>
       <el-button type="primary" @click="send">发送</el-button>
     </div>
   </div>
@@ -35,6 +35,7 @@ import socket from '../../utils/websocket'
 const scrollbarRef = ref()
 
 let route = useRoute() 
+let router = useRouter()
 let uid = ref('') as any
 
 // 聊天内容
@@ -76,6 +77,7 @@ let sendMsg = ref({
   content: '',
   type: 1, // 1 文字 2 图片 3 视频
 })
+
 const send = async () => {
   sendMsg.value.to_id = parseInt(uid.value)
   sendMsg.value.content = text.value
@@ -105,8 +107,6 @@ const loginWebSocket = () => {
     .then(() => {
       socket.send({
         uid: userStore.userInfo.id, 
-        to_id: sendMsg.value.to_id,
-        content: sendMsg.value.content,
         type: sendMsg.value.type,
       })
     })
@@ -128,6 +128,18 @@ const scrollToBottom = () => {
         top: scrollbar.wrapRef.scrollHeight,
         behavior: 'smooth', // 使用平滑滚动
       })
+    }
+  })
+}
+
+
+// 视频通话
+const call = () => {
+  router.push({
+    path: '/VideoCall',
+    query: {
+      from_id : uid.value,
+      type: 1 // 1: 打视频的那一方 2: 接受视频的那一方
     }
   })
 }

@@ -10,7 +10,7 @@ const request = axios.create({
   //基础路径
   // baseURL: import.meta.env.VITE_APP_BASE_API, //基础路径上会携带/api
   // baseURL: 'http://192.168.10.10:8081',
-  baseURL: 'http://localhost:8080',
+  baseURL: 'http://192.168.1.7:8080',
   timeout: 20000, //超时的时间的设置
 })
 //第二步:request实例添加请求与响应拦截器
@@ -40,6 +40,7 @@ request.interceptors.response.use(
     let message = ''
     //http状态码
     const status = error?.response?.status
+    console.log(status)
     switch (status) {
       case 401:
         message = 'TOKEN过期'

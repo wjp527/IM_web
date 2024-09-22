@@ -24,8 +24,10 @@ const socket: socket = {
     socket.websocket.onmessage = (e: any) => {
       let data = JSON.parse(e.data)
       console.log('websocket接收到消息', data)
-      if (data == 3) {
+      if (data.type == 3) {
         // 视频通话
+        // 跳转到视频通话页面
+        window.location.href = `/VideoCall?from_id=${data.from_id}&type=4`
       } else {
         const web = webSocketStore
         web.msg = e.data

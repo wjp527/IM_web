@@ -17,6 +17,7 @@ const routes: RouteRecordRaw[] = [
     name: 'Login',
     component: () => import('../views/Login/index.vue')
   },
+
   {
     path: '/home',
     name: 'home',
@@ -47,7 +48,13 @@ const routes: RouteRecordRaw[] = [
             component: () => import("../views/user/add.vue"),
           },
         ]
-      }
+      },
+      // 视频通话
+      {
+        path: '/VideoCall',
+        name: 'VideoCall',
+        component: () => import('../views/VideoCall/VideoCall.vue')
+      },
     ]
   },
 
