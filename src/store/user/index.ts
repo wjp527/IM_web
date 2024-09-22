@@ -7,11 +7,14 @@ import {
   // 获取用户信息
   reqGetUserInfo
 } from '../../api/user/index.ts'
+
+// 引入 用户仓库的 数据类型
+import { UserStateType } from './type'
 // 引入 登录 校验类型
 import { userLoginType } from '../../api/user/type'
 
 const useUserStore = defineStore('user', {
-  state: () => ({
+  state: (): UserStateType => ({
     token: '',
     userInfo: {}
   }),
@@ -36,7 +39,8 @@ const useUserStore = defineStore('user', {
         return res.msg;
       }
     }
-  }
+  },
+  persist: true,
 })
 
 export default useUserStore
